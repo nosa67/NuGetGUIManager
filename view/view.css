@@ -1,0 +1,74 @@
+body {
+	padding:0;
+}
+
+td{
+    padding:10px;
+}
+
+table{
+    width:100%;
+}
+
+table.package{
+    width:100%;
+    background-color: lightgray;
+    border:solid 1px black;
+}
+
+table.package-selected{
+    width:100%;
+    background-color: white;
+    border:solid 1px black;
+}
+
+img.icon{
+    width:32px;
+    height:32px;
+}
+
+td.package-icon{
+    padding:0;
+    width:4em;
+    height:4em;
+    text-align: center;
+    vertical-align: middle;
+}
+
+td.package-text{
+    padding:0;
+}
+
+div.installed-list{
+    width:100%;
+    height:200px;
+    overflow-y:auto;
+    overflow-x:hidden;
+    background-color: darkgray;
+}
+
+div.fined-list{
+    width:100%;
+    height:300px;
+    overflow-y:auto;
+    overflow-x:hidden;
+    background-color: darkgray;
+}
+
+div.package-title{
+    width:100%;
+    height:1.5em;
+    overflow:hidden;
+    text-align: left;
+    vertical-align: top;
+    color: black;
+}
+
+div.package-description{
+    width:100%;
+    height:2.5em;
+    overflow:hidden;
+    text-align: left;
+    vertical-align: top;
+    color: black;
+}
