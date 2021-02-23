@@ -1,8 +1,9 @@
 {
 	"name": "nugetmanager",
+	"publisher": "nosa",
 	"displayName": "Nuget GUI Manager",
-	"description": "NuGet manager like Visual Studio",
-	"version": "0.0.1",
+	"description": "NuGet Manager like Visual Studio",
+	"version": "0.0.2",
 	"engines": {
 		"vscode": "^1.52.0"
 	},
@@ -25,7 +26,7 @@
 			"explorer/context": [
 				{
 					"command": "NugetGUIManager.view",
-					"when": "resourceExtname == .csproj"
+					"when": "resourceExtname == .csproj || resourceExtname == .fsproj || resourceExtname == .vbproj"
 				}
 			]
 		},

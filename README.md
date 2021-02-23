@@ -1,65 +1,64 @@
-# NugetManager README
+# NuGet GUI Manager
+<div style="padding-left:1em">
+This package is NuGet Manager with GUI;
+</div>
+<br />
 
-This is the README for your extension "NugetManager". After writing up a brief description, we recommend including the following sections.
+## Usage
+<div style="padding-left:1em">
 
-## Features
+* Select project
+<div style="padding-left:3em">
+Right-Click a project file(*.csproj, *fsporj or *.vbproj), and select 'NuGet Manager' from context menu.<br />
+Then Package Manager view is shown.<br />
+Installed packages is disolaied at upper. Find NugGet server packages is displayed at lower.
+</div>
+<br />
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+* Add ackage
+<div style="padding-left:3em">
+Input parts of package name in the textbox at middle, and click the the find button.<br />
+Finded packages is shown at the area under the textbox. Select the pachake to want to add and version(at first selected latest stable version), and click add button.
+</div>
+<br />
 
-For example if there is an image subfolder under your extension project workspace:
+* Update package version
+<div style="padding-left:3em">
+Select the package in installed packages, and select the version. And click the update button.
+</div>
+<br />
 
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+* Delete package
+<div style="padding-left:3em">
+Select the package in installed packages, and click the delete button.
+</div>
+<br />
+</div>
+<br />
 
 ## Extension Settings
+<div style="padding-left:1em">
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+* `NugetGUIManager.serviceIndexURL`:
+<div style="padding-left:3em">
+Set NuGet server URL.(default value is 'https://api.nuget.org/v3/index.json')
+</div>
 
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
+</div>
+<br />
 
 ## Release Notes
+<div style="padding-left:1em">
 
-Users appreciate release notes as you update your extension.
+* 0.0.2
+<div style="padding-left:3em">
+Fix bugs.
+</div>
 
-### 1.0.0
+* 0.0.1
+<div style="padding-left:3em">
+Initial release of NuGet GUI Manager.
+</div>
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+</div>
+<br />

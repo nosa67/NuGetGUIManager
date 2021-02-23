@@ -9,6 +9,8 @@
     <title>Cat Coding</title>
 </head>
 <body>
+  <input type="hidden" id="serviceIndexURL" value="${serviceIndexURL}">   <!-- サービスインデックスのURL -->
+  <input type="hidden" id="projectPath" value="${projectPath}">           <!-- プロジェクトファイルのパス -->
 
   <!-- 既に登録されているパッケージの情報 -->
   <table>
@@ -21,12 +23,12 @@
       </td>
       <td style="padding:10px;width:200px">
         現在のバージョン：<span id="currentVersion"></span>
-        <select id="installedVersions" name="installedVersions" size="5" style="width:100%;" disabled>
+        <select id="installedVersions" name="installedVersions" size="5" style="width:100%;" disabled onchange="changeInstalledVersion()">
           <option value="-1">パッケージを選択してください。</option>
         </select>
         <div style="width:100%;text-align: center;padding:10px;">
-          <input type="button" onclick="updatePackage('${projectPath}');" value="変更">
-          <input type="button" onclick="deletePackage('${projectPath}');" value="削除">
+          <input id="changeButton" type="button" onclick="lockScreen('更新してもよろしいですか？',updatePackage);" value="変更" disabled>
+          <input id="deleteButton" type="button" onclick="lockScreen('削除してもよろしいですか？',deletePackage);" value="削除" disabled>
         </div>
       </td>
     </tr>
@@ -39,40 +41,50 @@
     <tr>
       <td>
         インストールしたいパッケージの検索
-        検索条件<input id="condition" type="text" style="width:300px"><input type="button" onclick="findPackages('${serviceIndexURL}');" value="検索"><br />
+        検索条件<input id="condition" type="text" style="width:300px"><input id="findButton" type="button" disabled onclick="findPackages();" value="検索" disable><br />
         <input type="checkbox" id="getprerelease">プレリリースを含める
       </td>
     </tr>
-
-    <tr>
-      <td>
-
-      </td>
-    </tr>
-    <tr> 
-
       <td style="vertical-align:top;overflow-y: auto;">
-        <div id="addPackages" name="addPackages" class="fined-list">
+        <div style="width:100%;text-align:right">
+          <button id="btnPrev" onclick="findPrev()" disabled>&lt;</button><span id="pageinfo"></span><button id="btnPost" onclick="findPost()" disabled>&gt;</button>
+        </div>
+        <div id="findPackages" name="findPackages" class="fined-list">
           <div style="width:100%;border:1px solid white;">検索してください</div>
         </div>
       </td>
 
       <td style="vertical-align:top;width:200px" valign="top">
-        <select id="versions" name="versions" size="5" style="width:100%;" disabled>
+        <select id="findedPackageVersions" name="versions" size="5" style="width:100%;" disabled>
           <option value="-1">パッケージを選択してください。</option>
         </select>
         <div style="width:100%;text-align: center;padding:10px;">
-          <input type="button" onclick="findPackages();" value="追加">
+          <input id="addButton" type="button" onclick="lockScreen('追加してもよろしいですか？',addPackage);" value="追加" disabled>
         </div>
       </td>
     </tr>
   </table> 
 
-  <script>
-    function aaa()
-    {
-      document.getElementById('test').innerHTML = 'TEST!!!!!'
-    }
-  </script>
+  <!-- 画面全体のロックと確認ダイアログ -->
+  <div id="lockScreen" class="lockScreen"> 
+    <div class="confirmDialog">
+      <table>
+        <tr>
+          <td colspan="2">
+            <span id="message"></span><br />
+          </td>
+        </tr>
+        <tr>
+          <td class="btnLeft">
+            <button onclick="selectCancel()">cancel</button>
+          </td>
+          <td class="btnRight">
+            <button onclick="selectOK()">OK</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
 </body>
 </html>

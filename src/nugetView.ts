@@ -13,7 +13,7 @@ let views: { [name: string]: vscode.WebviewPanel } = {};
 export function openNugetView(context: vscode.ExtensionContext, projectFilePath:string) {
 
   // プロジェクトファイルに関連付けられたNuGet管理ビューの存在確認
-  if(views[projectFilePath] == undefined)
+  if(views[projectFilePath] === undefined)
   {
     // ビューがなかったので作成する
     createNugetView(context, projectFilePath);
@@ -32,7 +32,7 @@ export function openNugetView(context: vscode.ExtensionContext, projectFilePath:
 function createNugetView(context: vscode.ExtensionContext, projectFilePath:string)
 {
   // プロジェクトファイルパスからファイル名の部分を取り出す
-  let filename =  path.basename(projectFilePath)
+  let filename =  path.basename(projectFilePath);
 
   // NuGet用のWebViewを構築する
   const panel =  vscode.window.createWebviewPanel(
@@ -46,17 +46,25 @@ function createNugetView(context: vscode.ExtensionContext, projectFilePath:strin
 
   // NuGet用のWebViewにコンテンツを設定する
   panel.webview.html = getWebviewContent(context, 'view/view.html',{
-    projectPath:projectFilePath,
-    scriptPath:GetWevUriPath(context, panel, 'view/view.js'),
-    stylePath:GetWevUriPath(context, panel, 'view/view.css'),
-    axiosPath:GetWevUriPath(context, panel, 'node_modules/axios/dist/axios.min.js'),
+    projectPath:escape(projectFilePath),
+    scriptPath:getWevUriPath(context, panel, 'view/view.js'),
+    stylePath:getWevUriPath(context, panel, 'view/view.css'),
+    axiosPath:getWevUriPath(context, panel, 'node_modules/axios/dist/axios.min.js'),
     serviceIndexURL:"" + vscode.workspace.getConfiguration('NugetGUIManager').get('serviceIndexURL')
+  });
+
+  // パネルの表示非表示が変更されたイベントの処理（再表示された時に初期表示に戻るため）
+  panel.onDidChangeViewState((e) => {
+    // 非表示→表示になった時にインストール済みのパッケージリストを設定する
+    if(e.webviewPanel.visible){
+      setInstalledPackaghes(context, panel, projectFilePath);
+    }
   });
 
   // パネルが破棄された時に管理用のリストから削除するイベント処理を設定する
   panel.onDidDispose(() => {
     Object.keys(views).forEach(key => {
-      if(views[key] == panel)
+      if(views[key] === panel)
       {
         delete  views[key];
       }
@@ -66,6 +74,7 @@ function createNugetView(context: vscode.ExtensionContext, projectFilePath:strin
   // NuGet管理ビューからの処理要求のハンドラを登録する
   setDidReceiveMessage(context, panel);
 
+  // 非同期でインストール済みのパッケージリストを設定する
   setInstalledPackaghes(context, panel, projectFilePath);
 
   // ビューの管理用リストに追加する
@@ -77,34 +86,38 @@ function createNugetView(context: vscode.ExtensionContext, projectFilePath:strin
 //    context     拡張機能のコンテキスト
 //    panel       NuGet管理ビュー
 //====================================================================================================
-function setDidReceiveMessage(context: vscode.ExtensionContext, panel:vscode.WebviewPanel)
+async function setDidReceiveMessage(context: vscode.ExtensionContext, panel:vscode.WebviewPanel)
 {
   // NuGet管理ビューからの処理要求のハンドラを登録
   panel.webview.onDidReceiveMessage(
     message => {
       
-      if(message.command === 'delete')
-      {
-        // 削除コマンド
-        var splited = message.package.split("_");
-        nuget.deletePackage(message.projectfile, splited[0])
-      }if(message.command === 'update')
-      {
-        // 更新コマンド
-        // var splited = message.package.split("_");
-        // nuget.deletePackage(message.projectfile, splited[0])
-      }
+      const projFilePath = unescape( message.projectfile);
+
       if(message.command === 'add')
       {
         // 追加コマンド
-        // var splited = message.package.split("_");
-        // nuget.deletePackage(message.projectfile, splited[0])
+        nuget.addPackage(projFilePath, message.package, message.version).then(result =>{
+          panel.dispose();
+          createNugetView(context, projFilePath);
+        });
+     }
+      else if(message.command === 'update')
+      {
+        // 更新コマンド
+        nuget.updatePackage(projFilePath, message.package, message.version).then(result =>{
+          panel.dispose();
+          createNugetView(context, projFilePath);
+        });
+       }
+      else if(message.command === 'delete')
+      {
+        // 削除コマンド
+        var p = nuget.deletePackage(projFilePath, message.package).then(result =>{
+          panel.dispose();
+          createNugetView(context, projFilePath);
+        });
       }
-
-      // コマンドは同一セッションでは１度しかじっこうできないので、実効後にNuGet管理ビューを作り直すことで何度も処理できるようにしている
-      panel.dispose();
-      createNugetView(context, message.projectfile);
-      return;
     },
     undefined,
     context.subscriptions
@@ -121,16 +134,6 @@ function setInstalledPackaghes(context: vscode.ExtensionContext, panel:vscode.We
 {
   // プロジェクトファイルからパッケージリストを取得してWebViewに表示する
   nuget.getList(projectFilePath).then(packageList => {
-
-    // // パッケージリストをselectで利用するアイテムのoptionタグにする
-    // var selectList = "";
-    // if(packageList !== null)
-    // {
-    //   packageList.forEach(element => {
-    //     selectList += "<option value=\"" + element.name + "_" + element.resolveVersionStr() + "\">" + element.name + " " + element.resolveVersionStr() + "</option>"
-    //   });
-    // }
-
     // WebViewへのメッセージ送信を利用してパッケージリストを表示す
     panel.webview.postMessage({ command: 'setPackageList', serviceIndexURL: "" + vscode.workspace.getConfiguration('NugetGUIManager').get('serviceIndexURL') , list: packageList });
   });
@@ -142,7 +145,7 @@ function setInstalledPackaghes(context: vscode.ExtensionContext, panel:vscode.We
 //    panel             WebViewのパネル
 //    relativePath      拡張機能の基本フォルダからの相対パス
 //====================================================================================================
-function GetWevUriPath(context: vscode.ExtensionContext, panel:vscode.WebviewPanel, relativePath: string)
+function getWevUriPath(context: vscode.ExtensionContext, panel:vscode.WebviewPanel, relativePath: string)
 {
   // NuGet管理のWebViewで利用するWebView内で利用可能なURIを取得する
   const onScriptPath = vscode.Uri.file(
