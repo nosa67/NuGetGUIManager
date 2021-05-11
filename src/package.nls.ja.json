@@ -1,0 +1,17 @@
+{
+    "titlRegisPackage": "登録されているパッケージ",
+    "gettingPackages" : "プロジェクト内のパッケージを取得中...",
+    "installedVersion": "現在のバージョン",
+    "selectPackage" : "パッケージを選択してください",
+    "sarchMessage" : "インストールしたいパッケージの検索",
+    "condition" : "検索条件",
+    "includePrerelease" : "プレリリースを含める",
+    "searchMessage" : "検索してください",
+    "canAdd": "追加してもよろしいですか？",
+    "add" : "追加",
+    "seacrh" : "検索",
+    "update" : "更新",
+    "delete" : "削除",
+    "canUpdate" : "更新してもよろしいですか？",
+    "canDelete" : "削除してもよろしいですか？"
+}

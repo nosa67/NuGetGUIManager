@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as nuget from './nuget';
 import * as path from 'path';
+import {localeString} from './extension';
 
 // オープンしているNuGet管理ビューの管理リスト。プロジェクトファイルをキーにしている
 let views: { [name: string]: vscode.WebviewPanel } = {};
@@ -50,7 +51,21 @@ function createNugetView(context: vscode.ExtensionContext, projectFilePath:strin
     scriptPath:getWevUriPath(context, panel, 'view/view.js'),
     stylePath:getWevUriPath(context, panel, 'view/view.css'),
     axiosPath:getWevUriPath(context, panel, 'node_modules/axios/dist/axios.min.js'),
-    serviceIndexURL:"" + vscode.workspace.getConfiguration('NugetGUIManager').get('serviceIndexURL')
+    serviceIndexURL:"" + vscode.workspace.getConfiguration('NugetGUIManager').get('serviceIndexURL'),
+    titlRegisPackage:localeString("titlRegisPackage"),
+    gettingPackages:localeString("gettingPackages"),
+    selectPackage:localeString("selectPackage"),
+    sarchMessage:localeString("Search"),
+    condition:localeString("condition"),
+    includePrerelease:localeString("includePrerelease"),
+    searchMessage:localeString("searchMessage"),
+    canAdd:localeString("canAdd"),
+    add:localeString("add"),
+    seacrh:localeString("seacrh"),
+    update:localeString("update"),
+    delete:localeString("delete"),
+    canUpdate:localeString("canUpdate"),
+    canDelete:localeString("canDelete")
   });
 
   // パネルの表示非表示が変更されたイベントの処理（再表示された時に初期表示に戻るため）

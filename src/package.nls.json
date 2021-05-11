@@ -1,0 +1,17 @@
+{
+    "titlRegisPackage": "Registed Packages",
+    "gettingPackages" : "Getting packages in project...",
+    "installedVersion": "Installed version",
+    "selectPackage" : "Select Package",
+    "sarchMessage" : "Search package",
+    "condition" : "Condition",
+    "includePrerelease" : "Include PreRelease Version",
+    "searchMessage" : "Do Search!",
+    "canAdd" : "Do you want to Add it?",
+    "add" : "Add",
+    "seacrh" : "Search",
+    "update" : "Update",
+    "delete" : "Delete",
+    "canUpdate" : "Do you want to Update it??",
+    "canDelete" : "Do you want to Delete it??"
+}

@@ -50,6 +50,11 @@ Set NuGet server URL.(default value is 'https://api.nuget.org/v3/index.json')
 ## Release Notes
 <div style="padding-left:1em">
 
+* 0.0.3
+<div style="padding-left:3em">
+Support localizasion ja and en.
+</div>
+
 * 0.0.2
 <div style="padding-left:3em">
 Fix bugs.

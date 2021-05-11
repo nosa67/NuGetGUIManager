@@ -15,6 +15,13 @@
 				"kind": "build",
 				"isDefault": true
 			}
+		},
+		{
+			"type": "npm",
+			"script": "vsce publish",
+			"problemMatcher": [],
+			"label": "npm: publishpackage",
+			"detail": "vsce publish"
 		}
 	]
 }
