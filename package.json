@@ -1,6 +1,7 @@
 {
 	"name": "nugetmanager",
 	"publisher": "nosa",
+	"repository": "https://github.com/nosa67/NuGetGUIManager.git",
 	"displayName": "Nuget GUI Manager",
 	"description": "NuGet Manager like Visual Studio",
 	"version": "0.0.4",
