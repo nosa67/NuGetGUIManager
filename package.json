@@ -3,7 +3,7 @@
 	"publisher": "nosa",
 	"displayName": "Nuget GUI Manager",
 	"description": "NuGet Manager like Visual Studio",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"engines": {
 		"vscode": "^1.52.0"
 	},

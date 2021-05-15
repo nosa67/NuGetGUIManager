@@ -95,6 +95,7 @@ var okAction = null;    // 確認ダイアログでokボタンをクリックし
 //--------------------------------------------------------------------------------
 function lockScreen(message, action){
   document.getElementById("message").innerHTML = message;
+  document.getElementById("lockScreen").style.height = window.innerHeight + "px";
   document.getElementById("lockScreen").style.visibility = "visible";
   okAction = action;
 }

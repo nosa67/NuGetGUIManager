@@ -52,6 +52,11 @@ Set NuGet server URL.(default value is 'https://api.nuget.org/v3/index.json')
 
 * 0.0.3
 <div style="padding-left:3em">
+Fixed sometimes illegal dialog position.
+</div>
+
+* 0.0.3
+<div style="padding-left:3em">
 Support localizasion ja and en.
 </div>
 
