@@ -4,7 +4,7 @@
 	"repository": "https://github.com/nosa67/NuGetGUIManager.git",
 	"displayName": "Nuget GUI Manager",
 	"description": "NuGet Manager like Visual Studio",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"engines": {
 		"vscode": "^1.52.0"
 	},

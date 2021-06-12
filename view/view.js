@@ -426,7 +426,9 @@ async function setInstalledPackageList(packageList){
       const detailURL = getDetailURL(packageList[i].name, packageList[i].resolveVersion);
       // パッケージ名からサーバーからのパッケージ情報を取得して設定する
       packageList[i].packageInfo = await getPackageInfo(packageList[i].name);
+      // logDiv.innerHTML += "name:" + packageList[i].name + ",iconUrl:" + packageList[i].packageInfo.iconUrl + ",descript:" + packageList[i].packageInfo.description + ",url:" + detailURL + "<br/>";
       document.getElementById("installedPackages").innerHTML += createPackageElement("installed", i, packageList[i].name, packageList[i].packageInfo.iconUrl, packageList[i].packageInfo.description, detailURL);
+      
     }
   }
 
@@ -495,7 +497,7 @@ function changeInstalledVersion(){
 async function getPackageInfo(packageName){
 
   // パッケージ名で検索する
-  let result = await findPackagesFromNuGetServer(packageName, "false");
+  let result = await findPackagesFromNuGetServer(packageName, "true");
   let packageList = result.data;
 
   // 検索結果からパッケージ名が一致するパッケージの情報を返す

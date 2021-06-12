@@ -50,7 +50,12 @@ Set NuGet server URL.(default value is 'https://api.nuget.org/v3/index.json')
 ## Release Notes
 <div style="padding-left:1em">
 
-* 0.0.3
+* 0.0.5
+<div style="padding-left:3em">
+Fixed cant listed when prelelease compornent existed.
+</div>
+
+* 0.0.4
 <div style="padding-left:3em">
 Fixed sometimes illegal dialog position.
 </div>
